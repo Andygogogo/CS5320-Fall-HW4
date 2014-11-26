@@ -56,14 +56,13 @@ public class Neo4jDB_Embedded {
         TO
     }
     
-    public static void createDB() {
+    public static void createDB(String inputFile) {
     	deleteFileOrDirectory( new File( DB_PATH ) );
 		GraphDatabaseService graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(DB_PATH);
 		registerShutdownHook( graphDb );
 		ExecutionEngine engine = new ExecutionEngine( graphDb );
 		
 		try {
-			String inputFile = "/Users/lilizhang/Desktop/DB_Assignment4/p2p-Gnutella04.txt";
 			BufferedReader br = new BufferedReader(new FileReader(inputFile));
 			String line = "";
 			String[] nodes;
@@ -162,9 +161,9 @@ public class Neo4jDB_Embedded {
 		}
 		
 		String type = args[0];
-		int nodeId = 0;
+		String arg2 = "";
 		if(args.length == 2) {
-			nodeId = Integer.parseInt(args[1]);
+			arg2 = args[1];
 		}
 		
 		long start = System.currentTimeMillis();
@@ -172,16 +171,16 @@ public class Neo4jDB_Embedded {
 		try {
 
 			if(type.equals("createDB")) {
-				createDB();
+				createDB(arg2);
 			} else {
 				GraphDatabaseService graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(DB_PATH);
 				registerShutdownHook( graphDb );
 				
 				long start_query = System.currentTimeMillis();
 				if(type.equals("neighbourCount")) {
-					neighbourCount(graphDb, nodeId);
+					neighbourCount(graphDb, Integer.parseInt(arg2));
 				} else if(type.equals("reachabilityCount")) {
-					reachabilityCount(graphDb, nodeId);
+					reachabilityCount(graphDb, Integer.parseInt(arg2));
 				} else {
 					System.out.println("Unsupported Type!");
 				}
