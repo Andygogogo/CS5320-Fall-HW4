@@ -91,7 +91,6 @@ public class Neo4jDB_Embedded {
 			}
 			
 			br.close();
-			
 			graphDb.shutdown();
 			
 		} catch (Exception ex) {
@@ -140,7 +139,6 @@ public class Neo4jDB_Embedded {
 		        }
 
 		    }
-		    
 			
 		    int count = 0;
 			for(Path nodePath : graphDb.traversalDescription().breadthFirst()
@@ -154,7 +152,6 @@ public class Neo4jDB_Embedded {
 			
 			System.out.println("Reachability Count: " + count);
 		}
-
     }
     
 	public static void main(String[] args) {
